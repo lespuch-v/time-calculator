@@ -30,19 +30,26 @@ export class ServiceService {
   // check user input
   // ! continue here
   checkIfValid() {
-    const myRegex = /(\d+)[.](\d+)[.](\d+)/;
+    const myRegex =
+      /^((0[1-9]|1[012]|[1-9])[- /.](0[1-9]|[12][0-9]|3[01]|[1-9])[- /.](19|20)\d\d|(19|20)\d\d[- /.](0[1-9]|1[012]|[1-9])[- /.](0[1-9]|[12][0-9]|3[01]|[1-9]))$/;
+    // const myRegex = /(\d+)[.](\d+)[.](\d+)/;
+    let firstINPT = myRegex.test(this.checkoutForm.value.firstUserInput);
+    let secondINPT = myRegex.test(this.checkoutForm.value.secondUserInput);
+    // console.log(firstINPT);
+    // console.log(secondINPT);
 
-    if (!myRegex.test(this.checkoutForm.value.firstUserInput || !myRegex.test(this.checkoutForm.value.secondUserInput))) {
-      this.displayInvalidMessage = true;
-      this.isMainContainersActive = false;
-      if(this.displayInvalidMessage === true){
-        setInterval(() => {
-          this.displayInvalidMessage = false;
-        },3000)
+    if (!firstINPT === true || !secondINPT === true) {
+      {
+        this.displayInvalidMessage = true;
+        this.isMainContainersActive = false;
+        if (this.displayInvalidMessage === true) {
+          setInterval(() => {
+            this.displayInvalidMessage = false;
+          }, 3000);
+        }
       }
     }
   }
-
   // Time Calculations
   calculateYearDifference(date1: string, date2: string) {
     const diff = new Date(date2).getFullYear() - new Date(date1).getFullYear();
